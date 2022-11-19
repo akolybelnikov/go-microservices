@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 )
 
 const webPort = "80"
@@ -17,8 +18,12 @@ func main() {
 	log.Printf("Starting server on port %s\n", webPort)
 
 	srv := &http.Server{
-		Addr:    fmt.Sprintf(":%s", webPort),
-		Handler: app.routes(),
+		Addr:              fmt.Sprintf(":%s", webPort),
+		Handler:           app.routes(),
+		ReadHeaderTimeout: time.Second,
+		ReadTimeout:       2 * time.Second,
+		WriteTimeout:      2 * time.Second,
+		IdleTimeout:       30 * time.Second,
 	}
 
 	err := srv.ListenAndServe()
