@@ -5,33 +5,40 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
+	wd, err := os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+	}
+	wd += "/frontend/cmd/web/templates/"
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		render(w, "test.page.gohtml")
+		render(w, wd, "test.page.gohtml")
 	})
 
 	fmt.Println("Starting front end service on port 80")
-	err := http.ListenAndServe(":80", nil)
+	err = http.ListenAndServe(":80", nil)
 	if err != nil {
 		log.Panic(err)
 	}
 }
 
-func render(w http.ResponseWriter, t string) {
+func render(w http.ResponseWriter, wd, t string) {
 
 	partials := []string{
-		"./cmd/web/templates/base.layout.gohtml",
-		"./cmd/web/templates/header.partial.gohtml",
-		"./cmd/web/templates/footer.partial.gohtml",
+		"base.layout.gohtml",
+		"header.partial.gohtml",
+		"footer.partial.gohtml",
 	}
 
 	var templateSlice []string
-	templateSlice = append(templateSlice, fmt.Sprintf("./cmd/web/templates/%s", t))
+	templateSlice = append(templateSlice, fmt.Sprintf("%s/%s", wd, t))
 
 	for _, x := range partials {
-		templateSlice = append(templateSlice, x)
+		templateSlice = append(templateSlice, fmt.Sprintf("%s/%s", wd, x))
 	}
 
 	tmpl, err := template.ParseFiles(templateSlice...)
