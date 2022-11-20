@@ -13,7 +13,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	wd += "/frontend/cmd/web/templates/"
+	wd += "\\cmd\\web\\templates\\"
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		render(w, wd, "test.page.gohtml")

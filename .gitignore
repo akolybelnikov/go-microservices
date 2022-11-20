@@ -13,6 +13,8 @@ go-microservices.code-workspace
 *.so
 *.dylib
 
+broker-service
+
 # Test binary, built with `go test -c`
 *.test
 
@@ -21,6 +23,7 @@ go-microservices.code-workspace
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+db-data
 
 # Go workspace file
 go.work

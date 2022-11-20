@@ -61,6 +61,7 @@
                     }
                 })
                 .catch(error => {
+                    output.classList.add("text-danger");
                     output.innerHTML = error.toString();
                 });
         })
