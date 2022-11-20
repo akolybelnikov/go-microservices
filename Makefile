@@ -4,7 +4,7 @@ BROKER_BINARY=broker-service
 AUTH_BINARY=auth-service
 
 ## up: starts all containers in the background without forcing build
-up:
+up: start
 	@echo Starting Docker images...
 	docker-compose up -d
 	@echo Docker images started!
