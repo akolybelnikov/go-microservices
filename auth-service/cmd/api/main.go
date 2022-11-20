@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"github.com/akolybelnikov/go-microservices/auth-service/data/users"
 	_ "github.com/jackc/pgconn"
 	_ "github.com/jackc/pgx/v4"
 	_ "github.com/jackc/pgx/v4/stdlib"
@@ -16,7 +17,8 @@ import (
 const webPort = "80"
 
 type Config struct {
-	DB *sql.DB
+	DB      *sql.DB
+	Queries *users.Queries
 }
 
 func main() {
@@ -29,6 +31,8 @@ func main() {
 	app := Config{
 		DB: db,
 	}
+
+	app.Queries = users.New(app.DB)
 
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%s", webPort),

@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
 	"net/http"
 )
@@ -19,6 +20,10 @@ func (app *Config) routes() http.Handler {
 		AllowCredentials: true,
 		MaxAge:           maxAge, // Maximum value not ignored by any of major browsers
 	}))
+
+	mux.Use(middleware.Heartbeat("/ping"))
+
+	mux.Post("/Authenticate", app.Authenticate)
 
 	return mux
 }
