@@ -13,8 +13,9 @@ go-microservices.code-workspace
 *.so
 *.dylib
 
-broker-service
-auth-service
+broker-service/broker-service
+auth-service/auth-service
+logger-service/logger-service
 
 # Test binary, built with `go test -c`
 *.test
